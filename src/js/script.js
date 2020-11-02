@@ -139,4 +139,85 @@ $(document).ready(function(){
 
       toggleSlide('.catalog-item__link');
       toggleSlide('.catalog-item__back');
+
+      // Modal
+
+      /* $('[data-modal=consultation]').fadeOut(); */ //проверка
+      $('[data-modal=consultation]').on('click', function() {
+        $('.overlay, #consultation').fadeIn();
+      });
+      $('.modal__close').on('click', function() {
+        $('.overlay, #consultation, #thanks, #order').fadeOut();
+      });
+/*       $('.button_mini').on('click', function() {
+        $('.overlay, #order').fadeIn();        
+      }); */
+
+      $('.button_mini').each(function(i) {
+        $(this).on('click', function() {
+          $('#order .modal__descr').text($('.catalog-item__subtitle').eq(i).text());
+          $('.overlay, #order').fadeIn();
+        })
+      });
+
+/*       $('#consultation-form').validate();
+      $('#consultation form').validate({
+        rules: {
+          name: {
+            required: true,
+            minlength: 2
+          },
+          phone: "required",
+          email: {
+            required: true,
+            email: true,
+          }
+        },
+        messages: {
+          name: {
+            required: "Напишите свое имя",
+            minlength: jQuery.validator.format("Минимум {0} символа")
+          },
+          phone: "Напишите свой номер телефона",
+          email: {
+            required: "Напишите свой адрес электронной почты",
+            email: "Неправильно введен адрес электронной почты"
+          }
+        }
+      });
+      $('#order form').validate(); */
+
+      function validateForms(form){
+        $(form).validate({
+          rules: {
+            name: {
+              required: true,
+              minlength: 2
+            },
+            phone: "required",
+            email: {
+              required: true,
+              email: true,
+            }
+          },
+          messages: {
+            name: {
+              required: "Напишите свое имя",
+              minlength: jQuery.validator.format("Минимум {0} символа")
+            },
+            phone: "Напишите свой номер телефона",
+            email: {
+              required: "Напишите свой адрес электронной почты",
+              email: "Неправильно введен адрес электронной почты"
+            }
+          }
+        });
+      };
+
+      validateForms('#consultation-form');
+      validateForms('#consultation form');
+      validateForms('#order form');
+
+      $('input[name=phone]').mask("+7 (999) 999-99-99");
+      
 });
